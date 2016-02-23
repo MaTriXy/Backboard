@@ -1,13 +1,37 @@
 apply plugin: 'com.android.library'
 apply plugin: 'checkstyle'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'Backboard'
+
+    publishedGroupId = 'com.tumblr'
+    libraryName = 'Backboard'
+    artifact = 'backboard'
+
+    libraryDescription = 'A motion-driven animation framework for Android.'
+
+    siteUrl = 'https://github.com/tumblr/Backboard'
+    gitUrl = 'https://github.com/tumblr/Backboard.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'ericleong'
+    developerName = 'Eric Leong'
+    developerEmail = 'ericleong@tumblr.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 21
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 100
         versionName "0.1.0"
     }
@@ -20,8 +44,8 @@ android {
 }
 
 dependencies {
-    provided 'com.facebook.rebound:rebound:0.3.8'
-    compile 'com.android.support:support-annotations:22.2.0'
+    provided rootProject.ext.facebookRebound
+    compile rootProject.ext.supportAnnotation
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
@@ -46,10 +70,18 @@ task checkstyle(type: Checkstyle) {
     classpath = files()
 }
 
-apply plugin: 'maven'
-
-def coreAarFile = file('build/backboard.aar')
-
-artifacts {
-	archives coreAarFile
+android.libraryVariants.all { variant ->
+    task("javadoc${variant.name}", type: Javadoc) {
+        source = variant.javaCompile.source
+        ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+        classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+        options.links("http://docs.oracle.com/javase/7/docs/api/")
+        options.linksOffline("http://developer.android.com/reference/", "${android.sdkDirectory}/docs/reference/")
+        options.links("http://facebook.github.io/rebound/javadocs/")
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
