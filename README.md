@@ -1,16 +1,23 @@
 ![the backboard icon](backboard-example/src/main/res/mipmap-xxhdpi/ic_launcher.png?raw=true)
 
-# backboard
+# Backboard
 
 A motion-driven animation framework for Android.
 
 `backboard` is a framework on top of [rebound](http://facebook.github.io/rebound/) that makes it easier to use by coupling it to views and motions.
 
-`backboard-example` is an Android app with a few demos of animations made possible by `backboard`.
+`backboard-example` is an Android app with a few demos of animations made possible by Backboard.
+
+[Javadoc](http://tumblr.github.io/Backboard/javadoc/)
+
+![follow animation](../screenshots/screenshots/follow.gif?raw=true)
+![bloom animation](../screenshots/screenshots/bloom.gif?raw=true)
+![scale animation](../screenshots/screenshots/scale.gif?raw=true)
 
 ## Table of Contents
 
 * [Usage](#usage)
+* [Publishing a new version](#publishing-a-new-version)
 * [Getting Started](#getting-started)
     * [Performers](#performers)
     * [Imitators](#imitators)
@@ -24,11 +31,32 @@ A motion-driven animation framework for Android.
 Update your `build.gradle` with
 
 ```groovy
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://a8c-libs.s3.amazonaws.com/android"
+            }
+        }
+        filter {
+            includeModule "com.tumblr", "backboard"
+        }
+    }
+}
+
 dependencies {
-   compile 'com.facebook.rebound:rebound:0.3.8'
-   compile 'com.tumblr:backboard:0.1.0'
+   implementation 'com.facebook.rebound:rebound:0.3.8'
+   implementation 'com.tumblr:backboard:0.2.0'
 }
 ```
+
+## Publishing a new version
+
+In the following cases, the CI will publish a new version with the following format to our S3 Maven repo:
+
+* For each commit in an open PR: `<PR-number>-<commit full SHA1>`
+* Each time a PR is merged to `master`: `master-<commit full SHA1>`
+* Each time a new tag is created: `{tag-name}`
 
 ## Getting Started
 

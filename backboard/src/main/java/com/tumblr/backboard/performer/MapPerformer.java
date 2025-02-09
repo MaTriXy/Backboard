@@ -1,15 +1,17 @@
 package com.tumblr.backboard.performer;
 
-import android.support.annotation.NonNull;
 import android.util.Property;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringUtil;
 
 /**
  * Maps the motion of a {@link com.facebook.rebound.Spring} to a
  * {@link android.util.Property} on a {@link android.view.View}.
- * <p/>
+ * <p>
  * Created by ericleong on 5/6/14.
  */
 public class MapPerformer extends Performer {
@@ -26,7 +28,7 @@ public class MapPerformer extends Performer {
 	 * @param property
 	 * 		the view property to modify.
 	 */
-	public MapPerformer(@NonNull View target, @NonNull Property<View, Float> property) {
+	public MapPerformer(@NonNull final View target, @NonNull final Property<View, Float> property) {
 		this(target, property, 0, 1, 0, 1);
 	}
 
@@ -42,7 +44,7 @@ public class MapPerformer extends Performer {
 	 * @param end
 	 * 		the maximum value for the view property range.
 	 */
-	public MapPerformer(@NonNull View target, @NonNull Property<View, Float> property, float start, float end) {
+	public MapPerformer(@NonNull final View target, @NonNull final Property<View, Float> property, final float start, final float end) {
 		this(target, property, 0, 1, start, end);
 	}
 
@@ -62,8 +64,8 @@ public class MapPerformer extends Performer {
 	 * @param end
 	 * 		the maximum value for the view property range.
 	 */
-	public MapPerformer(@NonNull View target, @NonNull Property<View, Float> property, float initialStart,
-	                    float initialEnd, float start, float end) {
+	public MapPerformer(@NonNull final View target, @NonNull final Property<View, Float> property, final float initialStart,
+	                    final float initialEnd, final float start, final float end) {
 		super(target, property);
 
 		this.initialStart = initialStart;
@@ -73,7 +75,7 @@ public class MapPerformer extends Performer {
 	}
 
 	@Override
-	public void onSpringUpdate(@NonNull Spring spring) {
+	public void onSpringUpdate(@NonNull final Spring spring) {
 
 		mProperty.set(mTarget,
 				(float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(),

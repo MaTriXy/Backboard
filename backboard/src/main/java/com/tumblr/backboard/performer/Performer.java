@@ -1,16 +1,18 @@
 package com.tumblr.backboard.performer;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Property;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringListener;
 
 /**
  * Directly maps the motion of a {@link com.facebook.rebound.Spring} to a
  * {@link android.util.Property} on a {@link android.view.View}.
- * <p/>
+ * <p>
  * Created by ericleong on 5/19/14.
  */
 public class Performer implements SpringListener {
@@ -32,7 +34,7 @@ public class Performer implements SpringListener {
 	 * @param property
 	 * 		the view property to modify.
 	 */
-	public Performer(@NonNull Property<View, Float> property) {
+	public Performer(@NonNull final Property<View, Float> property) {
 		this(null, property);
 	}
 
@@ -44,7 +46,7 @@ public class Performer implements SpringListener {
 	 * @param property
 	 * 		the view property to modify.
 	 */
-	public Performer(@Nullable View target, @NonNull Property<View, Float> property) {
+	public Performer(@Nullable final View target, @NonNull final Property<View, Float> property) {
 		this.mTarget = target;
 		this.mProperty = property;
 	}
@@ -54,7 +56,7 @@ public class Performer implements SpringListener {
 		return mTarget;
 	}
 
-	public void setTarget(@Nullable View target) {
+	public void setTarget(@Nullable final View target) {
 		this.mTarget = target;
 	}
 
@@ -63,29 +65,29 @@ public class Performer implements SpringListener {
 		return mProperty;
 	}
 
-	public void setProperty(@NonNull Property<View, Float> property) {
+	public void setProperty(@NonNull final Property<View, Float> property) {
 		this.mProperty = property;
 	}
 
 	@Override
-	public void onSpringUpdate(@NonNull Spring spring) {
+	public void onSpringUpdate(@NonNull final Spring spring) {
 		if (mProperty != null && mTarget != null) {
 			mProperty.set(mTarget, (float) spring.getCurrentValue());
 		}
 	}
 
 	@Override
-	public void onSpringAtRest(Spring spring) {
+	public void onSpringAtRest(final Spring spring) {
 
 	}
 
 	@Override
-	public void onSpringActivate(Spring spring) {
+	public void onSpringActivate(final Spring spring) {
 
 	}
 
 	@Override
-	public void onSpringEndStateChange(Spring spring) {
+	public void onSpringEndStateChange(final Spring spring) {
 
 	}
 }

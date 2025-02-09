@@ -1,8 +1,9 @@
-apply plugin: 'com.android.application'
+plugins {
+    id "com.android.application"
+}
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -10,6 +11,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    lintOptions {
+        disable 'AllowBackup', 'GoogleAppIndexingWarning'
+    }
+
     buildTypes {
         release {
 	        minifyEnabled false
@@ -19,7 +25,7 @@ android {
 }
 
 dependencies {
-    compile rootProject.ext.facebookRebound
-	compile project(':backboard')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.facebookRebound
+    implementation project(':backboard')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

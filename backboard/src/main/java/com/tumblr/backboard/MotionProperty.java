@@ -1,16 +1,17 @@
 package com.tumblr.backboard;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Property;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Used by {@link com.tumblr.backboard.Actor} and
  * {@link com.tumblr.backboard.imitator.MotionImitator} to determine which axis to use when mapping
  * from a {@link android.view.MotionEvent}.
- * <p/>
+ * <p>
  * Created by ericleong on 5/29/14.
  */
 public enum MotionProperty {
@@ -26,7 +27,7 @@ public enum MotionProperty {
 	@NonNull
 	private final Property<View, Float> mViewProperty;
 
-	private MotionProperty(@NonNull Property<View, Float> viewProperty) {
+	private MotionProperty(@NonNull final Property<View, Float> viewProperty) {
 		mViewProperty = viewProperty;
 	}
 
@@ -44,7 +45,7 @@ public enum MotionProperty {
 	 * 		the view to inspect
 	 * @return the current value that this property represents on the given <code>View</code>.
 	 */
-	public float getValue(@Nullable View view) {
+	public float getValue(@Nullable final View view) {
 		if (view != null) {
 			return mViewProperty.get(view);
 		}
@@ -58,14 +59,15 @@ public enum MotionProperty {
 	 * @return the current value that this property represents on the given
 	 * <code>MotionEvent</code>.
 	 */
-	public float getValue(@Nullable MotionEvent event) {
+	public float getValue(@Nullable final MotionEvent event) {
 		if (event != null) {
 			switch (this) {
 			case X:
 				return event.getX(0);
-			default:
 			case Y:
 				return event.getY(0);
+			default:
+				return event.getX(0);
 			}
 		}
 
@@ -82,14 +84,15 @@ public enum MotionProperty {
 	 * @return the historical value that this property represents on the given
 	 * <code>MotionEvent</code>.
 	 */
-	public float getHistoricalValue(@Nullable MotionEvent event, int index) {
+	public float getHistoricalValue(@Nullable final MotionEvent event, final int index) {
 		if (event != null) {
 			switch (this) {
-			default:
 			case X:
 				return event.getHistoricalX(index);
 			case Y:
 				return event.getHistoricalY(index);
+			default:
+				return 0;
 			}
 		}
 
@@ -104,7 +107,7 @@ public enum MotionProperty {
 	 * @return the oldest historical value that this property represents on the given
 	 * <code>MotionEvent</code>.
 	 */
-	public float getOldestValue(MotionEvent event) {
+	public float getOldestValue(final MotionEvent event) {
 		return getHistoricalValue(event, 0);
 	}
 
@@ -114,14 +117,15 @@ public enum MotionProperty {
 	 * @return the offset from the center that this property represents on the given
 	 * <code>View</code>, in pixels.
 	 */
-	public float getOffset(@Nullable View view) {
+	public float getOffset(@Nullable final View view) {
 		if (view != null) {
 			switch (this) {
-			default:
 			case X:
 				return -view.getWidth() / 2;
 			case Y:
 				return -view.getHeight() / 2;
+			default:
+				return -view.getWidth() / 2;
 			}
 		}
 

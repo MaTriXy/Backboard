@@ -1,14 +1,16 @@
 package com.tumblr.backboard.imitator;
 
-import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+
 import com.facebook.rebound.Spring;
 import com.tumblr.backboard.MotionProperty;
 
 /**
  * Maps a user's motion to a {@link android.view.View} via a {@link com.facebook.rebound.Spring}.
- * <p/>
+ * <p>
  * Created by ericleong on 5/13/14.
  */
 public class MotionImitator extends EventImitator {
@@ -37,7 +39,7 @@ public class MotionImitator extends EventImitator {
 	 * @param property
 	 * 		the property to track.
 	 */
-	public MotionImitator(@NonNull MotionProperty property) {
+	public MotionImitator(@NonNull final MotionProperty property) {
 		this(null, property, 0, TRACK_ABSOLUTE, FOLLOW_EXACT);
 	}
 
@@ -51,7 +53,7 @@ public class MotionImitator extends EventImitator {
 	 * @param followStrategy
 	 * 		the follow strategy.
 	 */
-	public MotionImitator(@NonNull MotionProperty property, int trackStrategy, int followStrategy) {
+	public MotionImitator(@NonNull final MotionProperty property, final int trackStrategy, final int followStrategy) {
 		this(null, property, 0, trackStrategy, followStrategy);
 	}
 
@@ -63,7 +65,7 @@ public class MotionImitator extends EventImitator {
 	 * @param property
 	 * 		the property to track.
 	 */
-	public MotionImitator(@NonNull Spring spring, @NonNull MotionProperty property) {
+	public MotionImitator(@NonNull final Spring spring, @NonNull final MotionProperty property) {
 		this(spring, property, spring.getEndValue(), TRACK_ABSOLUTE, FOLLOW_EXACT);
 	}
 
@@ -77,7 +79,7 @@ public class MotionImitator extends EventImitator {
 	 * @param restValue
 	 * 		the rest value for the spring.
 	 */
-	public MotionImitator(@NonNull Spring spring, @NonNull MotionProperty property, double restValue) {
+	public MotionImitator(@NonNull final Spring spring, @NonNull final MotionProperty property, final double restValue) {
 		this(spring, property, restValue, TRACK_ABSOLUTE, FOLLOW_EXACT);
 	}
 
@@ -95,8 +97,8 @@ public class MotionImitator extends EventImitator {
 	 * @param followStrategy
 	 * 		the follow strategy.
 	 */
-	public MotionImitator(@NonNull Spring spring, @NonNull MotionProperty property, double restValue,
-	                      int trackStrategy, int followStrategy) {
+	public MotionImitator(@NonNull final Spring spring, @NonNull final MotionProperty property, final double restValue,
+	                      final int trackStrategy, final int followStrategy) {
 		super(spring, restValue, trackStrategy, followStrategy);
 		mProperty = property;
 	}
@@ -113,13 +115,13 @@ public class MotionImitator extends EventImitator {
 	 * @param followStrategy
 	 * 		the follow strategy.
 	 */
-	public MotionImitator(@NonNull MotionProperty property, double restValue, int trackStrategy,
-	                      int followStrategy) {
+	public MotionImitator(@NonNull final MotionProperty property, final double restValue, final int trackStrategy,
+	                      final int followStrategy) {
 		super(restValue, trackStrategy, followStrategy);
 		mProperty = property;
 	}
 
-	public void setRestValue(double restValue) {
+	public void setRestValue(final double restValue) {
 		this.mRestValue = restValue;
 	}
 
@@ -138,21 +140,21 @@ public class MotionImitator extends EventImitator {
 	}
 
 	@Override
-	public void constrain(MotionEvent event) {
+	public void constrain(final MotionEvent event) {
 		super.constrain(event);
 
 		mDownPosition = mProperty.getValue(event) + mOffset;
 	}
 
 	@Override
-	public void imitate(final View view, @NonNull MotionEvent event) {
+	public void imitate(final View view, @NonNull final MotionEvent event) {
 
 		final float viewValue = mProperty.getValue(view);
 		final float eventValue = mProperty.getValue(event);
 		mOffset = mProperty.getOffset(view);
 
 		if (event.getHistorySize() > 0) {
-			float historicalValue = mProperty.getOldestValue(event);
+			final float historicalValue = mProperty.getOldestValue(event);
 
 			imitate(viewValue + mOffset, eventValue, eventValue - historicalValue, event);
 		} else {
@@ -161,7 +163,7 @@ public class MotionImitator extends EventImitator {
 	}
 
 	@Override
-	public void mime(float offset, float value, float delta, float dt, MotionEvent event) {
+	public void mime(final float offset, final float value, final float delta, final float dt, final MotionEvent event) {
 		if (mTrackStrategy == TRACK_DELTA) {
 			super.mime(offset - mDownPosition, value, delta, dt, event);
 		} else {
@@ -170,7 +172,7 @@ public class MotionImitator extends EventImitator {
 	}
 
 	@Override
-	protected double mapToSpring(float motionValue) {
+	protected double mapToSpring(final float motionValue) {
 		return motionValue;
 	}
 

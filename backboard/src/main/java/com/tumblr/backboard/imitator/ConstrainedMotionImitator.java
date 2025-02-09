@@ -1,12 +1,14 @@
 package com.tumblr.backboard.imitator;
 
-import android.support.annotation.NonNull;
 import android.view.MotionEvent;
+
+import androidx.annotation.NonNull;
+
 import com.tumblr.backboard.MotionProperty;
 
 /**
  * Constrains the motion between the minimum and maximum values.
- * <p/>
+ * <p>
  * Created by ericleong on 10/9/14.
  */
 public class ConstrainedMotionImitator extends MotionImitator {
@@ -30,7 +32,7 @@ public class ConstrainedMotionImitator extends MotionImitator {
 	 * @param maxValue
 	 * 		the desired maximum spring value.
 	 */
-	public ConstrainedMotionImitator(@NonNull MotionProperty property, double minValue, double maxValue) {
+	public ConstrainedMotionImitator(@NonNull final MotionProperty property, final double minValue, final double maxValue) {
 		this(property, TRACK_ABSOLUTE, FOLLOW_EXACT, minValue, maxValue);
 	}
 
@@ -48,8 +50,8 @@ public class ConstrainedMotionImitator extends MotionImitator {
 	 * @param maxValue
 	 * 		the desired maximum spring value.
 	 */
-	public ConstrainedMotionImitator(@NonNull MotionProperty property, int trackStrategy,
-	                                 int followStrategy, double minValue, double maxValue) {
+	public ConstrainedMotionImitator(@NonNull final MotionProperty property, final int trackStrategy,
+	                                 final int followStrategy, final double minValue, final double maxValue) {
 		super(property, trackStrategy, followStrategy);
 
 		mMinValue = minValue;
@@ -57,7 +59,7 @@ public class ConstrainedMotionImitator extends MotionImitator {
 	}
 
 	@Override
-	public void release(MotionEvent event) {
+	public void release(final MotionEvent event) {
 		if (mSpring != null) {
 			// snap to left or right depending on current location
 			if (mSpring.getCurrentValue() > mMaxValue) {
@@ -68,11 +70,11 @@ public class ConstrainedMotionImitator extends MotionImitator {
 		}
 	}
 
-	public void setMinValue(double minValue) {
+	public void setMinValue(final double minValue) {
 		this.mMinValue = minValue;
 	}
 
-	public void setMaxValue(double maxValue) {
+	public void setMaxValue(final double maxValue) {
 		this.mMaxValue = maxValue;
 	}
 }

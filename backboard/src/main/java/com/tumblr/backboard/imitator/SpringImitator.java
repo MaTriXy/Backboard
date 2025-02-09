@@ -1,15 +1,16 @@
 package com.tumblr.backboard.imitator;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringListener;
 
 /**
  * Allows a {@link com.facebook.rebound.Spring} to imitate another {@link com.facebook.rebound.Spring}.
- * <p/>
+ * <p>
  * The default implementation sets the end value of the attached Spring to be the same as the
  * current value of the couple it is imitating.
- * <p/>
+ * <p>
  * Created by ericleong on 5/16/14.
  */
 public class SpringImitator extends Imitator implements SpringListener {
@@ -18,7 +19,7 @@ public class SpringImitator extends Imitator implements SpringListener {
 	 * @param spring
 	 * 		the spring to imitate
 	 */
-	public SpringImitator(@NonNull Spring spring) {
+	public SpringImitator(@NonNull final Spring spring) {
 		super(spring);
 	}
 
@@ -32,7 +33,7 @@ public class SpringImitator extends Imitator implements SpringListener {
 	 * @param followStrategy
 	 * 		the follow strategy.
 	 */
-	protected SpringImitator(@NonNull Spring spring, int trackStrategy, int followStrategy) {
+	protected SpringImitator(@NonNull final Spring spring, final int trackStrategy, final int followStrategy) {
 		super(spring, trackStrategy, followStrategy);
 	}
 
@@ -48,32 +49,32 @@ public class SpringImitator extends Imitator implements SpringListener {
 	 * @param followStrategy
 	 * 		the follow strategy.
 	 */
-	protected SpringImitator(@NonNull Spring spring, double restValue, int trackStrategy, int followStrategy) {
+	protected SpringImitator(@NonNull final Spring spring, final double restValue, final int trackStrategy, final int followStrategy) {
 		super(spring, restValue, trackStrategy, followStrategy);
 	}
 
 	@Override
-	protected double mapToSpring(float motionValue) {
+	protected double mapToSpring(final float motionValue) {
 		return motionValue;
 	}
 
 	@Override
-	public void onSpringUpdate(@NonNull Spring spring) {
+	public void onSpringUpdate(@NonNull final Spring spring) {
 		mSpring.setEndValue(spring.getCurrentValue());
 	}
 
 	@Override
-	public void onSpringAtRest(Spring spring) {
+	public void onSpringAtRest(final Spring spring) {
 
 	}
 
 	@Override
-	public void onSpringActivate(Spring spring) {
+	public void onSpringActivate(final Spring spring) {
 
 	}
 
 	@Override
-	public void onSpringEndStateChange(Spring spring) {
+	public void onSpringEndStateChange(final Spring spring) {
 
 	}
 }
